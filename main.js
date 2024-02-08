@@ -1,8 +1,23 @@
-// Definimos un objeto 
+// Objeto Simulador
 const Simulador = {
+    impuestos: [
+        { rango: 1000, porcentaje: 0.1 },
+        { rango: 2000, porcentaje: 0.15 },
+        { rango: 3000, porcentaje: 0.2 },
+        { rango: Infinity, porcentaje: 0.25 }
+    ],
     calcularImpuestos: function(salario) {
-        const impuesto = salario * 0.15; // Supongamos un impuesto fijo del 15%
-        return impuesto;
+        let impuestoTotal = 0;
+        for (const impuesto of this.impuestos) {
+            if (salario <= impuesto.rango) {
+                impuestoTotal += salario * impuesto.porcentaje;
+                break;
+            } else {
+                impuestoTotal += impuesto.rango * impuesto.porcentaje;
+                salario -= impuesto.rango;
+            }
+        }
+        return impuestoTotal;
     }
 };
 
